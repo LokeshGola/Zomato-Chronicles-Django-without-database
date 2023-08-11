@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order List</title>
+</head>
+<body>
+    <h1>Order List</h1>
+    <ul>
+        {% for order in orders %}
+            <li>
+                Customer: {{ order.customer_name }}<br>
+                Dishes: {{ order.dishes|join:", " }}<br>
+                Status: {{ order.status }}<br>
+                Total Price: ${{ order.total_price }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Dish</title>
+</head>
+<body>
+    <h1>Add Dish</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="dish_name">Dish Name:</label>
+        <input type="text" name="dish_name" required><br>
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" name="price" required><br>
+        <label for="availability">Availability:</label>
+        <input type="checkbox" name="availability"><br>
+        <button type="submit">Add Dish</button>
+    </form>
+</body>
+</html>

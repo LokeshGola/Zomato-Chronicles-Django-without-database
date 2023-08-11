@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Take Order</title>
+</head>
+<body>
+    <h1>Take Order</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="customer_name">Customer Name:</label>
+        <input type="text" name="customer_name" required><br>
+        <label for="order_dishes">Select Dishes:</label>
+        <select name="order_dishes" multiple>
+            {% for dish in menu_items %}
+                <option value="{{ dish.dish_name }}">{{ dish.dish_name }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Place Order</button>
+    </form>
+</body>
+</html>

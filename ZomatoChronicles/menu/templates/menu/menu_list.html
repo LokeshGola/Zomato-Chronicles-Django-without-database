@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu List</title>
+</head>
+<body>
+    <h1>Menu List</h1>
+    <ul>
+        {% for dish in menu_items %}
+            <li>{{ dish.dish_name }} - ${{ dish.price }} {% if dish.availability %}(Available){% else %}(Not Available){% endif %}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
