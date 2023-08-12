@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from .models import Dish
 
-# persisting the data into file system;
+# # persisting the data into file system;
 # import pickle
 # import os
 # DATA_FILE = "menu_data.pkl"
@@ -19,22 +19,19 @@ from .models import Dish
 #             menu_items = data["menu_items"]
 #             orders = data["orders"]
 
-#Call the load_data() function at the beginning of your views.py to load data from the file;
+# # Call the load_data() function at the beginning of your views.py to load data from the file;
 # load_data()
 
 
 menu_items = []  # Global list to store menu items
 orders = []  # Global list to store orders
 
+menu_items.append(Dish(dish_name="Pasta", price=10.99))
+menu_items.append(Dish(dish_name="Pizza", price=15.99))
+
 # Create your views here.
 
 def get_menu_items():
-    menu_items = [
-        Dish(dish_name="Pasta", price=10.99),
-        Dish(dish_name="Pizza", price=15.99),
-        Dish(dish_name="Burger", price=8.99),
-        # Add more dishes here
-    ]
     return menu_items
 
 def menu_list(request):
@@ -78,6 +75,8 @@ def update_dish(request, dish_name):
 # take orders, order_list;
 
 def take_order(request):
+    menu_items = get_menu_items()  # Assuming you already have the get_menu_items function from previous steps
+
     if request.method == "POST":
         customer_name = request.POST["customer_name"]
         order_dishes = request.POST.getlist("order_dishes")
@@ -92,8 +91,7 @@ def take_order(request):
         orders.append(order)
         # save_data()
         return redirect("order_list")
-
-    menu_items = get_menu_items()  # Assuming you already have the get_menu_items function from previous steps
+    
     return render(request, "menu/take_order.html", {"menu_items": menu_items})
 
 
