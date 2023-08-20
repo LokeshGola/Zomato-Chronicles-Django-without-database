@@ -15,5 +15,30 @@
         <input type="checkbox" name="availability" {% if dish.availability %}checked{% endif %}><br>
         <button type="submit">Update Dish</button>
     </form>
+
+    <div style="display: none;" id="messages">
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    </div>
+
 </body>
+<script>
+    window.onload = function() {
+        // Get the messages from Django's messages framework
+        var messages = document.getElementById("messages").textContent;
+    
+        // Check for success message
+        if (messages.includes("updated successfully")) {
+            alert("Dish updated successfully!");
+        }
+        
+        // Check for error message
+        if (messages.includes("not found")) {
+            alert("Dish not found.");
+        }
+    }
+    </script>
 </html>

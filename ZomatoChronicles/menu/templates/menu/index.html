@@ -39,8 +39,19 @@
     <div id="box">
         <div><a href="{% url 'add_dish' %}">Add Dish</a></div>
         
-        <!-- <div><a href="{% url 'update_dish' dish.dish_name %}">Update Dish</a></div> -->
+        
+        <div><a href="{% url 'menu_list' %}">Menu List</a></div>
+        <div><a href="{% url 'order_list' %}">Order List</a></div>
+        <div><a href="{% url 'review_orders' %}">Review Orders</a></div>
+        
 
+        <!-- {% for dish in menu_items %}
+        <div><a href="{% url 'update_dish' dish.dish_name %}">Update {{ dish.dish_name }}</a></div>
+        {% endfor %} -->
+        
+        <div><a href="{% url 'update_dish' %}">Update Dish</a></div>
+
+    
         <div><a href="{% url 'take_order' %}">Take Order</a></div>
         
     </div>

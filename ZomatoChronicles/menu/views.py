@@ -2,6 +2,9 @@
 from django.shortcuts import render, redirect
 from .models import Dish
 
+from django.shortcuts import render, redirect, get_object_or_404
+
+
 # # persisting the data into file system;
 # import pickle
 # import os
@@ -60,19 +63,97 @@ def remove_dish(request, dish_name):
     # save_data()
     return redirect("menu_list")
 
-def update_dish(request, dish_name):
-    for dish in menu_items:
-        if dish.dish_name == dish_name:
-            if request.method == "POST":
-                dish.dish_name = request.POST["dish_name"]
-                dish.price = float(request.POST["price"])
-                dish.availability = request.POST.get("availability") == "on"
-                # save_data()
-                return redirect("menu_list")
-            return render(request, "menu/update_dish.html", {"dish": dish})
-    return redirect("menu_list")
+# def update_dish(request, dish_name):
+#     for dish in menu_items:
+#         if dish.dish_name == dish_name:
+#             if request.method == "POST":
+#                 dish.dish_name = request.POST["dish_name"]
+#                 dish.price = float(request.POST["price"])
+#                 dish.availability = request.POST.get("availability") == "on"
+#                 # save_data()
+#                 return redirect("menu_list")
+#             return render(request, "menu/update_dish.html", {"dish": dish})
+#     return redirect("menu_list")
 
-# take orders, order_list;
+# def update_dish(request, dish_name):
+#     dish = get_object_or_404(menu_items, dish_name=dish_name)
+    
+#     if request.method == "POST":
+#         dish.dish_name = request.POST["dish_name"]
+#         dish.price = float(request.POST["price"])
+#         dish.availability = request.POST.get("availability") == "on"
+#         # save_data()
+#         return redirect("menu_list")
+    
+#     return render(request, "menu/update_dish.html", {"dish": dish})
+# # take orders, order_list;
+
+# def update_dish(request, dish_name):
+#     dish = get_object_or_404(menu_items, dish_name=dish_name)
+    
+#     if request.method == "POST":
+#         dish.dish_name = request.POST["dish_name"]
+#         dish.price = float(request.POST["price"])
+#         dish.availability = request.POST.get("availability") == "on"
+#         # Save the changes to the dish
+#         dish.save()
+#         return redirect("menu_list")
+    
+#     return render(request, "menu/update_dish.html", {"dish": dish})
+
+from django.contrib import messages
+
+# def update_dish(request):
+#     if request.method == "POST":
+#         print("hello 1")
+#         dish_name = request.POST["dish_name"]
+#         for dish in menu_items:
+#             if dish.dish_name == dish_name:
+#                 updated_price = float(request.POST["price"])
+#                 updated_availability = request.POST.get("availability") == "on"
+                
+#                 # Update the dish attributes
+#                 dish.dish_name = dish_name
+#                 dish.price = updated_price
+#                 dish.availability = updated_availability
+                
+#                  # Add a success message
+#                 messages.success(request, f"Dish '{dish_name}' updated successfully.")
+                
+#                 # Redirect to the menu list page
+#                 return redirect("menu_list")
+    
+#     return render(request, "menu/update_dish.html")
+
+def update_dish(request):
+    if request.method == "POST":
+        dish_name = request.POST["dish_name"]
+        dish_found = False
+        for dish in menu_items:
+            if dish.dish_name == dish_name:
+                updated_price = float(request.POST["price"])
+                updated_availability = request.POST.get("availability") == "on"
+                
+                # Update the dish attributes
+                dish.dish_name = dish_name
+                dish.price = updated_price
+                dish.availability = updated_availability
+                
+                # Set the flag to indicate dish found
+                dish_found = True
+                
+                # Add a success message
+                messages.success(request, f"Dish '{dish_name}' updated successfully.")
+                break
+
+        if not dish_found:
+            messages.error(request, f"Dish '{dish_name}' not found.")
+
+        # Redirect to the menu list page
+        # return redirect("menu_list")
+    
+    return render(request, "menu/update_dish.html")
+
 
 def take_order(request):
     menu_items = get_menu_items()  # Assuming you already have the get_menu_items function from previous steps
